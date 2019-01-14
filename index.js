@@ -24,16 +24,34 @@
   };
 
   // utility method to extend defaults w/user options
-  function extendDefaults(source, properties){
-
-      const property;
-      for (property in properties) {
-          if (properties.hasOwnProperty(property)) {
-              source[property] = properties[property]
-          }
+  function extendDefaults(source, properties) {
+    let property;
+    for (property in properties) {
+      if (properties.hasOwnProperty(property)) {
+        source[property] = properties[property];
       }
-      return source;
+    }
+    return source;
   }
 })();
 
-var myModal = new Modal();
+var myModal = new Modal({
+  content: "Howdy",
+  maxWidth: 600
+});
+
+// public methods
+
+(function() {
+  this.Modal = function() {};
+
+  // Public Methods
+  Modal.prototype.open = function() {
+    //open code goes here
+  };
+
+  // Private Methods
+
+  // Utility method to extend defaults with user options
+  function extendDefaults(source, properties) {}
+})();
