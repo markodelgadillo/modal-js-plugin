@@ -17,9 +17,9 @@
       overlay: true
     };
 
-    // create options by extending defaults w/passed in args
-    if (args[0] && typeof args[0] === "object") {
-      this.options = extendDefaults(defaults, args[0]);
+    // create options by extending defaults w/passed in arguments
+    if (arguments[0] && typeof arguments[0] === "object") {
+      this.options = extendDefaults(defaults, arguments[0]);
     }
   };
 
