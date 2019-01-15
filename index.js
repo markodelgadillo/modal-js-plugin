@@ -55,3 +55,54 @@ var myModal = new Modal({
   // Utility method to extend defaults with user options
   function extendDefaults(source, properties) {}
 })();
+
+function buildOut() {
+  var content, contentHolder, docFrag;
+
+  /*
+   * If content is an HTML string, append the HTML string.
+   * If content i a domNode, append its content.
+   */
+
+  if (typeof this.options.content === "string") {
+    content = this.options.content;
+  } else {
+    content = this.options.content.innerHTML;
+  }
+
+  // Create a DocumentFragment to build with
+  docFrag = document.createDocumentFragment();
+
+  // Create a modal element
+  this.modal = document.createElement("div");
+  this.modal.className = "scotch-modal " + this.options.className;
+  this.modal.style.minWidth = this.options.minWidth + "px";
+  this.modal.style.maxWidth = this.options.maxWidth + "px";
+
+  // if closeButton option is true, add a close button
+  if(this.options.closeButton === true) {
+      this.closeButton.document.createElement("button") 
+      this.closeButton.className = "scotch-modal " + this.options.className
+      this.closebutton.innerHTML = "x"
+      this.modal.appendChild(this.closeButton)
+  }
+
+  // If overlay is true, add one
+  if(this.options.overlay === true) {
+      this.overlay = document.createElement("div")
+      this.overlay.className = "scotch-close close-button";
+      docFrag.appendChild(this.overlay)
+  }
+
+  // Create content area and append to modal
+  contentHolder  document.createElement("div"
+  contentHolder.className = "scotch-content")
+  contentHolder.innerHTML = content
+  this.modal.appendChild(contentHolder)
+
+  // Append modalto DocumentFragment
+  docFrag.appendChild(this.modal)
+
+  // Append DocumentFragment to body
+  document.body.appendChild(docFrag)
+}
