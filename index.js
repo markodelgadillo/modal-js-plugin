@@ -95,8 +95,8 @@ function buildOut() {
   }
 
   // Create content area and append to modal
-  contentHolder  document.createElement("div"
-  contentHolder.className = "scotch-content")
+  contentHolder = document.createElement("div")
+  contentHolder.className = "scotch-content"
   contentHolder.innerHTML = content
   this.modal.appendChild(contentHolder)
 
@@ -106,3 +106,5 @@ function buildOut() {
   // Append DocumentFragment to body
   document.body.appendChild(docFrag)
 }
+
+
