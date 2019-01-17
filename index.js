@@ -47,7 +47,17 @@ var myModal = new Modal({
 
   // Public Methods
   Modal.prototype.open = function() {
-    //open code goes here
+    //Build out the modal
+    buildOut.call(this);
+
+    // Initialize our event listeners
+    initializeEvents.call(this);
+
+    // Look up .getComputedStyle
+    window.getComputedStyle(this.modal).height;
+
+    this.modal.className = this.modal.className + (this.modal.offsetHeight > window.innerHeight ? " scotch-open scotch-anchored");
+    this.overlay.className = this.overlay.className + " scotch-open";
   };
 
   // Private Methods
@@ -80,31 +90,39 @@ function buildOut() {
   this.modal.style.maxWidth = this.options.maxWidth + "px";
 
   // if closeButton option is true, add a close button
-  if(this.options.closeButton === true) {
-      this.closeButton.document.createElement("button") 
-      this.closeButton.className = "scotch-modal " + this.options.className
-      this.closebutton.innerHTML = "x"
-      this.modal.appendChild(this.closeButton)
+  if (this.options.closeButton === true) {
+    this.closeButton.document.createElement("button");
+    this.closeButton.className = "scotch-modal " + this.options.className;
+    this.closebutton.innerHTML = "x";
+    this.modal.appendChild(this.closeButton);
   }
 
   // If overlay is true, add one
-  if(this.options.overlay === true) {
-      this.overlay = document.createElement("div")
-      this.overlay.className = "scotch-close close-button";
-      docFrag.appendChild(this.overlay)
+  if (this.options.overlay === true) {
+    this.overlay = document.createElement("div");
+    this.overlay.className = "scotch-close close-button";
+    docFrag.appendChild(this.overlay);
   }
 
   // Create content area and append to modal
-  contentHolder = document.createElement("div")
-  contentHolder.className = "scotch-content"
-  contentHolder.innerHTML = content
-  this.modal.appendChild(contentHolder)
+  contentHolder = document.createElement("div");
+  contentHolder.className = "scotch-content";
+  contentHolder.innerHTML = content;
+  this.modal.appendChild(contentHolder);
 
   // Append modalto DocumentFragment
-  docFrag.appendChild(this.modal)
+  docFrag.appendChild(this.modal);
 
   // Append DocumentFragment to body
-  document.body.appendChild(docFrag)
+  document.body.appendChild(docFrag);
 }
 
+function initializeEvents() {
+  if (this.closeButton) {
+    this.closeButton.addEventListener("click", this.close.bind(this));
+  }
 
+  if (this.overlay) {
+    this.overlay.addEventListener("click", this.close.bind(this));
+  }
+}
