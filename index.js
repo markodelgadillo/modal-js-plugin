@@ -60,6 +60,26 @@ var myModal = new Modal({
     this.overlay.className = this.overlay.className + " scotch-open";
   };
 
+  Modal.prototype.close = function () {
+      // Store the value of this
+      var _ = this;
+
+      // REmove the open class name
+      this.modal.className = this.modal.className.replace(" scotch-open", "");
+      this.overlay.className = this.overlay.className.replace(" scotch-open", "");
+
+      /*
+      * Listening for the CSS transitionend even and then
+      * Remove the nodes from the DOM
+      */
+      this.modal.addEventListener(this.transitionEnd, function () {
+          _.modal.parentNode.removeChild(_.modal);
+      });
+      this.overlay.addEventListener(this.transitionEnd, function() {
+          if(_.overlay.parentNode) _.overlay.parentNode.removeChild(_.overlay);
+      })
+  }
+
   // Private Methods
 
   // Utility method to extend defaults with user options
@@ -126,3 +146,4 @@ function initializeEvents() {
     this.overlay.addEventListener("click", this.close.bind(this));
   }
 }
+
